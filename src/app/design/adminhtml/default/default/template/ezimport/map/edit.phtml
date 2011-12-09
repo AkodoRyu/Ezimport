@@ -1,0 +1,145 @@
+<div class="content-header">
+<table cellspacing="0">
+    <tr>
+        <td style="width:50%;"><h3 class="icon-head head-products">Manage maps</h3></td>
+        <td class="a-right">
+        	<button style="" onclick="sendData()" class="scalable save" type="button"><span>Save</span></button>
+			<button style="" onclick="what()" class="scalable" type="button"><span>Show data</span></button>
+            <button type="button" class="scalable back" onclick="javascript:history.back()"><span>Cancel</span></button>            
+        </td>
+    </tr>
+</table>
+</div>
+
+<?php 
+
+//$this->debug(); 
+
+$droppables = $this->getDroppable(); 
+
+$draggables = $this->getDraggable();		
+
+?>
+
+ <div id="map_body">
+            <?php //echo $draggables[] ?>
+            <div id="map_event">
+                <p>Drag the xml fields you wish to map to the representing fields to the right.</p>
+            </div>    
+                                 
+            <div id="map_left">
+            
+                <div id="drop_unmapped" style="height: <?php echo count($draggables)*30+70; ?>px;" class="ui-widget-header drop big">
+                
+                    <p>Unmapped</p>
+                    <?php foreach($draggables as $key => $value) {
+                        echo '<div id="drag_'.$value['name'].'" class="ui-widget-content drag">'	.PHP_EOL;
+                        echo $value['name']															.PHP_EOL;
+                        echo '</div>'																.PHP_EOL;
+                    }?>                              
+                </div>
+                            
+            </div>
+            
+            <div id="map_right">
+                    <?php foreach($droppables as $value) {
+                        echo '<div id="drop_'.$value->getIdentifier().'" class="ui-widget-header drop">'	.PHP_EOL;
+                        echo $value->getName()																.PHP_EOL;
+                        echo '</div>'																		.PHP_EOL;
+                    }?>
+            </div>
+        </div>
+        
+        <form id="data" name="data" method="POST" action="<?php echo $this->getSaveUrl(); ?>" />
+            <input name="form_key" type="hidden" value="<?php echo Mage::getSingleton('core/session')->getFormKey();?>" />
+            <input type="hidden" name="data" id="data" />
+        </form>
+
+<script type="text/javascript">
+    
+    jQuery.noConflict();
+
+    jQuery(function() {				  				   
+               
+    <?php
+    foreach($droppables as $value){	
+    ?>			
+        jQuery("#drop_<?php echo $value->getIdentifier(); ?>").droppable({
+            drop: function(event, ui) {
+                jQuery(this).addClass('ui-state-highlight');
+                for(key in fields){
+                    if(fields[key] == jQuery(ui.draggable).html()){
+                        fields[key] = 0;
+                    }
+                }	
+                fields["<?php echo $value->getIdentifier(); ?>"] = (jQuery(ui.draggable).html());				
+            },															   
+            out: function(event, ui) {
+                jQuery(this).removeClass('ui-state-highlight');
+            }														   
+        });                
+    <?php
+    }
+    ?>
+    
+        jQuery("#drop_unmapped").droppable({
+            drop: function(event, ui) {
+                for(key in fields){
+                    if(fields[key] == jQuery(ui.draggable).html()){
+                        fields[key] = 0;
+                    }
+                }
+            }
+        });
+            
+    });
+
+</script>
+
+<script type="text/javascript">
+    jQuery(function() {
+               
+    <?php		
+    foreach($draggables as $key => $value){
+    ?>			
+        jQuery("#drag_<?php echo $value['name']; ?>").draggable({ 
+                                  revert: 'invalid', 
+                                  snap: '.drop', 
+                                  snapMode: 'inner',
+                                  snapTolerance: 10,
+                                  drag: function(event, ui) {jQuery(this).draggable('option', 'zIndex', 10000);}	
+                                  });
+    <?php
+    }
+    ?>
+    });
+    
+    var fields=new Object();
+    
+    <?php 
+    foreach($droppables as $value){	
+        echo 'fields["'.$value->getIdentifier().'"] = 0;' . PHP_EOL;
+    }
+    ?>
+    
+    function what(){
+        
+        var string ='';
+        
+        for(key in fields) {
+            string += (key + '=' + fields[key] + '\n');
+        }
+        
+        alert(string);
+        
+    }
+    
+    function sendData()
+    {
+      var packed = "";
+      packed = jQuery.toJSON(fields);
+      document.data.data.value = packed;
+      document.data.submit();
+    }
+    
+</script>

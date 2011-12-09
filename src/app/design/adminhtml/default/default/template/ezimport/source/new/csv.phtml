@@ -1,0 +1,338 @@
+<div class="content-header">
+    <table cellspacing="0" class="grid-header">
+        <tr>
+            <td><h3 class="icon-head head-products">Import</h3></td>
+            <td class="a-right">
+                <button onclick="javascript:history.back()" class="scalable back" type="button"><span>Back</span></button>
+            </td>            
+        </tr>
+    </table>
+</div>
+
+<script type="text/javascript">
+	function toggle_cc(id) {
+		$('cc_url').hide();
+		$('cc_file').hide();
+		$('cc_ftp').hide();
+		$('cc_directinput').hide();
+		$('cc_url_csv').hide();
+		$('cc_file_csv').hide();
+		$('cc_ftp_csv').hide();
+		$('cc_directinput_csv').hide()		
+		if(id != 'cc')
+			$(id).show();
+	};
+	
+	Event.observe(window, 'load', function() {
+		toggle_cc('cc');
+	});
+ 
+	
+</script>
+
+<style type="text/css">
+	.entry-edit fieldset h3 {
+		cursor: pointer;	
+	}
+</style>
+
+<div class="entry-edit">
+    <form id="edit_form" name="edit_form" method="post" action="/index.php/customcatalog/import/addXml">
+        <input name="form_key" type="hidden" value="<?php echo Mage::getSingleton('core/session')->getFormKey() ?>" />
+        <input name="r[type]" type="hidden" value="url" />
+		<fieldset>
+        	<h3 onclick="toggle_cc('cc_url');">Add new XML by URL</h3>
+            <div id="cc_url">
+                <table cellspacing="0" class="form-list customcatalog">
+                    <tr>
+                        <td>Name</td>
+                        <td><input type="text" class="input-text required-entry" name="r[name]" /></td>                 
+                    </tr>
+                    <tr>
+                        <td>Url</td>
+                        <td><input type="text" class="input-text required-entry" name="r[url]" /></td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td><button type="submit" class="scalable save"><span>Add</span></button></td>
+                    </tr>
+                </table>
+            </div>
+        </fieldset>
+    </form>
+</div>
+
+<div class="entry-edit">
+    <form id="edit_form" name="edit_form" method="post" action="/index.php/customcatalog/import/addXml" enctype="multipart/form-data">
+        <input name="form_key" type="hidden" value="<?php echo Mage::getSingleton('core/session')->getFormKey() ?>" />
+        <input name="r[type]" type="hidden" value="file" />
+		<fieldset>
+        	<h3 onclick="toggle_cc('cc_file');">Add new XML by file</h3>
+            <div id="cc_file">
+                <table cellspacing="0" class="form-list customcatalog">
+                    <tr>
+                        <td>Name</td>
+                        <td><input type="text" class="input-text required-entry" name="r[name]" /></td>                 
+                    </tr>
+                    <tr>
+                        <td>Choose file</td>
+                        <td>
+                            <input name="uploadedfile" type="file" class="required-entry" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td><button type="submit" class="scalable save"><span>Add</span></button></td>
+                    </tr>
+                </table>
+            </div>
+        </fieldset>
+    </form>
+</div>
+
+<div class="entry-edit">
+    <form id="edit_form" name="edit_form" method="post" action="/index.php/customcatalog/import/addXml">
+        <input name="form_key" type="hidden" value="<?php echo Mage::getSingleton('core/session')->getFormKey() ?>" />
+        <input name="r[type]" type="hidden" value="ftp" />
+		<fieldset>
+        	<h3 onclick="toggle_cc('cc_ftp');">Add new XML by FTP</h3>
+            <div id="cc_ftp">
+                <table cellspacing="0" class="form-list customcatalog">
+                    <tr>
+                        <td>Name</td>
+                        <td><input type="text" class="input-text required-entry" name="r[name]" /></td>                 
+                    </tr>
+                    <tr>
+                        <td>Url</td>
+                        <td><input type="text" class="input-text required-entry" name="r[url]" /></td>
+                    </tr>
+                    <tr>
+                        <td>Username</td>
+                        <td><input type="text" class="input-text required-entry" name="r[username]" /></td>
+                    </tr>
+                    <tr>
+                        <td>Password</td>
+                        <td><input type="text" class="input-text required-entry" name="r[password]" /></td>
+                    </tr>
+                    <tr>
+                        <td>Port</td>
+                        <td><input type="text" class="input-text required-entry" name="r[port]" value="21"/></td>
+                    </tr>                                                
+                    <tr>
+                        <td></td>
+                        <td><button type="submit" class="scalable save"><span>Add</span></button></td>
+                    </tr>
+                </table>
+        	</div>
+        </fieldset>
+    </form>
+</div>
+
+<div class="entry-edit">
+    <form id="edit_form" name="edit_form" method="post" action="/index.php/customcatalog/import/addXml">
+        <input name="form_key" type="hidden" value="<?php echo Mage::getSingleton('core/session')->getFormKey() ?>" />
+        <input name="r[type]" type="hidden" value="directinput" />
+		<fieldset>
+        	<h3 onclick="toggle_cc('cc_directinput');">Add new XML by direct input</h3>
+            <div id="cc_directinput">
+                <table cellspacing="0" class="form-list customcatalog">
+                    <tr>
+                        <td>Name</td>
+                        <td><input type="text" class="input-text required-entry" name="r[name]" /></td>                 
+                    </tr>
+                    <tr>
+                        <td>Input</td>
+                        <td><textarea type="text" cols="120" rows="20" class="input-text required-entry" name="r[directinput]"></textarea></td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td><button type="submit" class="scalable save"><span>Add</span></button></td>
+                    </tr>
+                </table>
+            </div>
+        </fieldset>
+    </form>
+</div>
+
+
+<div class="entry-edit">
+    <form id="edit_form" name="edit_form" method="post" action="/index.php/customcatalog/import/addCsv">
+        <input name="form_key" type="hidden" value="<?php echo Mage::getSingleton('core/session')->getFormKey() ?>" />
+        <input name="r[type]" type="hidden" value="url" />
+		<fieldset>
+        	<h3 onclick="toggle_cc('cc_url_csv');">Add new CSV by URL</h3>
+            <div id="cc_url_csv">
+                <table cellspacing="0" class="form-list customcatalog">
+                    <tr>
+                        <td>Name</td>
+                        <td><input type="text" class="input-text required-entry" name="r[name]" /></td>                 
+                    </tr>
+                    <tr>
+                        <td>CSV seperator</td>
+                        <td>
+                            <select name="r[seperato]r">
+                                <option value="0">
+                                    Semicolon ( ; )
+                                </option>
+                                <option value="1">
+                                    Comma ( , )
+                                </option>
+                                <option value="2">
+                                    Pipe ( | )
+                                </option>							
+                            </select>
+                        </td>					
+                    </tr>                    
+                    <tr>
+                        <td>Url</td>
+                        <td><input type="text" class="input-text required-entry" name="r[url]" /></td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td><button type="submit" class="scalable save"><span>Add</span></button></td>
+                    </tr>
+                </table>
+            </div>
+        </fieldset>
+    </form>
+</div>
+
+<div class="entry-edit">
+    <form id="edit_form" name="edit_form" method="post" action="/index.php/customcatalog/import/addCsv" enctype="multipart/form-data">
+        <input name="form_key" type="hidden" value="<?php echo Mage::getSingleton('core/session')->getFormKey() ?>" />
+        <input name="r[type]" type="hidden" value="file" />
+		<fieldset>
+        	<h3 onclick="toggle_cc('cc_file_csv');">Add new CSV by file</h3>
+            <div id="cc_file_csv">
+                <table cellspacing="0" class="form-list customcatalog">
+                    <tr>
+                        <td>Name</td>
+                        <td><input type="text" class="input-text required-entry" name="r[name]" /></td>                 
+                    </tr>
+                    <tr>
+                        <td>CSV seperator</td>
+                        <td>
+                            <select name="r[seperato]r">
+                                <option value="0">
+                                    Semicolon ( ; )
+                                </option>
+                                <option value="1">
+                                    Comma ( , )
+                                </option>
+                                <option value="2">
+                                    Pipe ( | )
+                                </option>							
+                            </select>
+                        </td>					
+                    </tr>                     
+                    <tr>
+                        <td>Choose file</td>
+                        <td>
+                            <input name="uploadedfile" type="file" class="required-entry" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td><button type="submit" class="scalable save"><span>Add</span></button></td>
+                    </tr>
+                </table>
+            </div>
+        </fieldset>
+    </form>
+</div>
+
+<div class="entry-edit">
+    <form id="edit_form" name="edit_form" method="post" action="/index.php/customcatalog/import/addCsv">
+        <input name="form_key" type="hidden" value="<?php echo Mage::getSingleton('core/session')->getFormKey() ?>" />
+        <input name="r[type]" type="hidden" value="ftp" />
+		<fieldset>
+        	<h3 onclick="toggle_cc('cc_ftp_csv');">Add new CSV by FTP</h3>
+            <div id="cc_ftp_csv">
+                <table cellspacing="0" class="form-list customcatalog">
+                    <tr>
+                        <td>Name</td>
+                        <td><input type="text" class="input-text required-entry" name="r[name]" /></td>                 
+                    </tr>
+                    <tr>
+                        <td>CSV seperator</td>
+                        <td>
+                            <select name="r[seperato]r">
+                                <option value="0">
+                                    Semicolon ( ; )
+                                </option>
+                                <option value="1">
+                                    Comma ( , )
+                                </option>
+                                <option value="2">
+                                    Pipe ( | )
+                                </option>							
+                            </select>
+                        </td>					
+                    </tr>                        
+                    <tr>
+                        <td>Url</td>
+                        <td><input type="text" class="input-text required-entry" name="r[url]" /></td>
+                    </tr>
+                    <tr>
+                        <td>Username</td>
+                        <td><input type="text" class="input-text required-entry" name="r[username]" /></td>
+                    </tr>
+                    <tr>
+                        <td>Password</td>
+                        <td><input type="text" class="input-text required-entry" name="r[password]" /></td>
+                    </tr>
+                    <tr>
+                        <td>Port</td>
+                        <td><input type="text" class="input-text required-entry" name="r[port]" value="21"/></td>
+                    </tr>                                                
+                    <tr>
+                        <td></td>
+                        <td><button type="submit" class="scalable save"><span>Add</span></button></td>
+                    </tr>
+                </table>
+        	</div>
+        </fieldset>
+    </form>
+</div>
+
+<div class="entry-edit">
+    <form id="edit_form" name="edit_form" method="post" action="/index.php/customcatalog/import/addCsv">
+        <input name="form_key" type="hidden" value="<?php echo Mage::getSingleton('core/session')->getFormKey() ?>" />
+        <input name="r[type]" type="hidden" value="directinput" />
+		<fieldset>
+        	<h3 onclick="toggle_cc('cc_directinput_csv');">Add new CSV by direct input</h3>
+            <div id="cc_directinput_csv">
+                <table cellspacing="0" class="form-list customcatalog">
+                    <tr>
+                        <td>Name</td>
+                        <td><input type="text" class="input-text required-entry" name="r[name]" /></td>                 
+                    </tr>
+                    <tr>
+                        <td>CSV seperator</td>
+                        <td>
+                            <select name="r[seperato]r">
+                                <option value="0">
+                                    Semicolon ( ; )
+                                </option>
+                                <option value="1">
+                                    Comma ( , )
+                                </option>
+                                <option value="2">
+                                    Pipe ( | )
+                                </option>							
+                            </select>
+                        </td>					
+                    </tr>                    
+                    <tr>
+                        <td>Input</td>
+                        <td><textarea type="text" cols="120" rows="20" class="input-text required-entry" name="r[directinput]"></textarea></td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td><button type="submit" class="scalable save"><span>Add</span></button></td>
+                    </tr>
+                </table>
+            </div>
+        </fieldset>
+    </form>
+</div>

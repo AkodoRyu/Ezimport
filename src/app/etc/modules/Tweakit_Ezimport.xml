@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<config>
+         <modules>
+                <Tweakit_Ezimport>
+                        <active>true</active>
+                        <codePool>local</codePool>
+                </Tweakit_Ezimport>
+         </modules>
+</config>

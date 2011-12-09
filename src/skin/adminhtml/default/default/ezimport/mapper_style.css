@@ -1,0 +1,65 @@
+#map_body { 
+	width: 500px; 
+	padding: 30px;
+	background: #F2F2F2; 
+	-moz-border-radius:15px;
+	float: left;
+}
+
+.drag { 
+	width: 150px; 
+	height: 20px;  
+	float: left; 
+	margin-top: 10px; 
+	cursor: move;
+}
+
+.drop { 
+	width: 150px; 
+	height:40px;  
+	float: right; 
+	margin: 10px; 
+}
+
+.big{  	
+}
+
+#map_right { 
+	float: right; 
+	width: 170px;
+	background: #CFC; 
+	-moz-border-radius:15px;
+}
+
+#map_left { 
+	float: left; 
+	background: #CFC; 
+	-moz-border-radius:15px;
+}
+
+#map_event {
+	float: left;
+	width: 100%;
+	-moz-border-radius:15px;
+	min-height: 25px;
+	margin: 15px 0;
+	padding: 10px;
+	font-size: 1.2em;
+	background-color: #0C9;
+}
+
+#map_body p{
+	margin: 0;
+	text-align: center;
+	padding: 0;
+}
+
+.map_button{
+	width: 100px; 
+	height: 20px; 
+	float: left; 
+	margin: 10px; 
+	cursor: pointer;
+	border: 1px solid #5873EF;
+	background: #6CF;
+}

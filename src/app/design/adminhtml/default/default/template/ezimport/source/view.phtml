@@ -1,0 +1,96 @@
+<div class="content-header">
+    <table cellspacing="0" class="grid-header">
+        <tr>
+            <td><h3 class="icon-head head-products">Preview mapped products</h3></td>
+            <td class="a-right">
+                <button onclick="javascript:history.back()" class="scalable back" type="button"><span>Back</span></button>
+                <button style="" onclick="window.location='<?php echo $this->getImportUrl() ?>'" class="scalable save" type="button"><span>Import</span></button>
+            </td>            
+        </tr>
+    </table>
+</div>
+
+<div class="grid">
+    <div class="hor-scroll">
+        <table cellspacing="0" class="data">
+
+            <thead>
+            	
+                <tr class="headings">
+                	
+                    <th class=" no-link">
+                    	<span class="nobr">#</span>
+                	</th>
+                    
+					<?php
+                    
+					$count_attributes = count($this->getAttributes());
+					
+                    foreach($this->getAttributes() as $attribute){
+                    
+                        echo '<th class=" no-link"><span class="nobr">'.$attribute->getName().'</span></th>';
+                        
+                    }
+                    
+                    ?>
+					
+					<th class="no-link">
+						Select
+					</th>
+					
+                </tr>
+                
+            </thead>
+                
+       		<tbody id="">
+            
+            	<?php
+				
+				$products = $this->getProducts();
+
+				$count_products = count($products);
+					
+				$i = 0;
+					
+				foreach($products as $product) {
+					
+					$i++;
+					
+					if($i%2)
+						echo '<tr class="uneven">';
+					else
+						echo '<tr class="even">';
+					
+					echo '<td>';
+					echo $i;
+					echo '</td>';					
+					
+					foreach($product as $attribute_key => $attribute_value) {
+						
+						echo '<td>';
+						echo $this->getHelperAttribute($attribute_key)->getPreview($attribute_value);
+						echo '</td>';
+							
+					}
+					
+					echo '<td>';										
+					echo '<input type=checkbox name="'.$this->get.'"/>';
+					echo '</td>';
+					
+					echo '</tr>';
+					
+				}
+				
+				if(empty($products)): ?>
+            	
+                    <tr class="even">
+                        <td colspan="<?php echo $count_attributes ?>" class="empty-text a-center">No records found. Have you mapped your source yet?</td>
+                    </tr>
+                    
+        		<?php endif; ?>        
+		                
+            </tbody>
+
+    </table>
+    </div>
+</div>

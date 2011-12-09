@@ -1,0 +1,42 @@
+<?xml version="1.0"?>
+<layout version="0.1.0">
+
+    <ezimport_index_index>
+        <reference name="content">
+			<block type="ezimport/source" name="sources_list" template="ezimport/source.phtml">
+			</block>
+        </reference>
+    </ezimport_index_index>
+	
+	<ezimport_source_index>
+		<update handle="ezimport_index_index" />
+	</ezimport_source_index>
+	
+	<ezimport_source_new>
+        <reference name="content">
+			<block type="ezimport/source_new" name="source_new" template="ezimport/source/new.phtml">
+			</block>
+        </reference>	
+	</ezimport_source_new>
+	
+	<ezimport_source_view>
+        <reference name="content">
+			<block type="ezimport/source_view" name="source_view" template="ezimport/source/view.phtml">
+			</block>
+        </reference>	
+	</ezimport_source_view>	
+	
+	<ezimport_map_edit>
+        <reference name="head">
+			<action method="addCss"><stylesheet>ezimport/jquery-ui-1.7.2.custom.css</stylesheet></action>
+			<action method="addCss"><file>ezimport/mapper_style.css</file></action>
+            <action method="addJs"><file>ezimport/jquery-1.3.2.min.js</file></action>
+			<action method="addJs"><file>ezimport/jquery-ui-1.7.2.custom.min.js</file></action>
+            <action method="addJs"><file>ezimport/jquery.json-2-2.min.js</file></action>
+        </reference>
+		<reference name="content">
+			<block type="ezimport/map_edit" name="map_edit" template="ezimport/map/edit.phtml"/>
+		</reference>
+	</ezimport_map_edit>
+
+</layout>

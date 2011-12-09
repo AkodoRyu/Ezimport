@@ -1,0 +1,114 @@
+<config>
+    <modules>
+        <Tweakit_Ezimport>
+            <version>0.1.0</version>
+        </Tweakit_Ezimport>
+    </modules>
+	
+    <admin>
+        <routers>
+            <ezimport>
+                <use>admin</use>
+                <args>
+                    <module>Tweakit_Ezimport</module>
+                    <frontName>ezimport</frontName>
+                </args>
+            </ezimport>
+        </routers>
+    </admin>	
+	
+    <adminhtml>
+	
+		<layout>
+			<updates>
+				<ezimport>
+					<file>ezimport.xml</file>
+				</ezimport>
+			</updates>
+		</layout>	
+	
+        <menu>
+            <ezimport translate="title" module="ezimport">
+                <title>Ezimport</title> 
+                <sort_order>25</sort_order>
+                <action>ezimport/index/index</action>
+                <!--<children>
+					<overview module="ezimport">
+						<title>Overview</title>
+						<action>ezimport/index/index</action>
+					</overview>
+                    <first_page module="ezimport">
+                        <title>Import</title> 
+                        <action>ezimport/import/index</action>
+                    </first_page>
+                    <second_page module="ezimport">
+                        <title>Products</title> 
+                        <action>ezimport/products/index</action>
+                    </second_page>					
+             </children>-->
+            </ezimport>
+        </menu> 
+    </adminhtml>	
+	
+	<global>
+	
+		<models>
+			<ezimport>
+				<class>Tweakit_Ezimport_Model</class>
+				<resourceModel>ezimport_mysql4</resourceModel>
+			</ezimport>
+			
+			<ezimport_mysql4>
+			
+				<class>Tweakit_Ezimport_Model_Mysql4</class>
+				
+				<entities>
+					<source>
+						<table>ezimport_source</table>
+					</source>
+					<map>
+						<table>ezimport_map</table>
+					</map>					
+				</entities>   	
+							          
+			</ezimport_mysql4>			   
+		</models>
+		
+		<helpers>
+			<ezimport>
+				<class>Tweakit_Ezimport_Helper</class>
+			</ezimport>
+		</helpers>	
+
+        <blocks>
+            <ezimport>
+            	<class>Tweakit_Ezimport_Block</class>				
+           	</ezimport>
+        </blocks>		
+		
+		<resources>
+			<ezimport_write>
+				<connection>
+					<use>core_write</use>
+				</connection>
+			</ezimport_write>
+			<ezimport_read>
+				<connection>
+					<use>core_read</use>
+				</connection>
+			</ezimport_read>
+			
+		    <ezimport_setup>
+		        <setup>
+		            <module>Tweakit_Ezimport</module>
+		            <class>Tweakit_Ezimport_Model_Resource_Mysql4_Setup</class>
+		        </setup>
+		        <connection>
+		            <use>core_setup</use>
+		        </connection>
+		    </ezimport_setup>			
+			 
+		</resources>    		
+		
+	</global>
+</config>
