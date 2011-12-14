@@ -1,97 +1,106 @@
 <!DOCTYPE html>
-<html>
+<html lang=en>
 <head>
-  <meta charset='utf-8'>
+	<meta charset=UTF-8>
+	<meta name=viewport content="width=device-width, initial-scale=1, minimum-scale=1.0, maximum-scale=1.0">
 
-  <title>TweakIT/Ezimport @ GitHub</title>
+	<title>TweakIT</title>
+	
+	<!-- The framework -->
+	<link rel=stylesheet href=css/inuit.css>
+	<!-- Plugins -->
+	<link rel=stylesheet href=css/grid.inuit.css>
 
-  <style type="text/css">
-    body {
-      margin-top: 1.0em;
-      background-color: #9db7f6;
-      font-family: Helvetica, Arial, FreeSans, san-serif;
-      color: #000000;
-    }
-    #container {
-      margin: 0 auto;
-      width: 700px;
-    }
-    h1 { font-size: 3.8em; color: #624809; margin-bottom: 3px; }
-    h1 .small { font-size: 0.4em; }
-    h1 a { text-decoration: none }
-    h2 { font-size: 1.5em; color: #624809; }
-    h3 { text-align: center; color: #624809; }
-    a { color: #624809; }
-    .description { font-size: 1.2em; margin-bottom: 30px; margin-top: 30px; font-style: italic;}
-    .download { float: right; }
-    pre { background: #000; color: #fff; padding: 15px;}
-    hr { border: 0; width: 80%; border-bottom: 1px solid #aaa}
-    .footer { text-align:center; padding-top:30px; font-style: italic; }
-  </style>
+	<link href='http://fonts.googleapis.com/css?family=Cantarell' rel='stylesheet' type='text/css'>
+
+	<link rel="stylesheet/less" type="text/css" href="css/styles.less">
+	<script src="js/less.js" type="text/javascript"></script>
+	
+	<!--[if lt IE 9]>
+	<script src="js/html5.js"></script>
+	<![endif]-->	
+
+	<!--[if IE 6]>
+    <link rel=stylesheet href="css/ie6.inuit.css">
+	<![endif]-->
+	<script type="text/javascript">
+
+	  var _gaq = _gaq || [];
+	  _gaq.push(['_setAccount', 'UA-27679031-1']);
+	  _gaq.push(['_trackPageview']);
+
+	  (function() {
+		var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+		ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+		var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+	  })();
+
+	</script>
+		
 </head>
 
 <body>
-  <a href="https://github.com/TweakIT/Ezimport"><img style="position: absolute; top: 0; right: 0; border: 0;" src="http://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png" alt="Fork me on GitHub" /></a>
 
-  <div id="container">
+	<a href="https://github.com/TweakIT/Ezimport"><img style="position: absolute; top: 0; right: 0; border: 0;" src="http://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png" alt="Fork me on GitHub" /></a>
+	
+	<header class="wrapper header">
 
-    <div class="download">
-      <a href="https://github.com/TweakIT/Ezimport/zipball/master">
-        <img border="0" width="90" src="https://github.com/images/modules/download/zip.png"></a>
-      <a href="https://github.com/TweakIT/Ezimport/tarball/master">
-        <img border="0" width="90" src="https://github.com/images/modules/download/tar.png"></a>
-    </div>
+		<div class="grids">
+		
+			<div class="grid-16 grid">
+				
+				<h1 class="title">Ezimport</h1>
+				
+				<h2>This simple tool provides developer/shop owners with a platform which makes mapping products from XML and/or CSV files to magento products for importing easier.</h2>
+				
+				<p><a href="https://github.com/TweakIT/Ezimport/zipball/master" class=button>Download .zip</a> <a href="https://github.com/TweakIT/Ezimport/tarball/master" class=button>Download .tar</a></p>
+				
+				<nav role=navigation>
+					<ul class="nav">
+						<li><a href=# title=""><span>Overview</span></a></li>
+						<li><a href=# title=""><span>Usage</span></a></li>
+						<li><a href=# title=""><span>Under the hood</span></a></li>
+						<li><a href=# title=""><span>Writing tests</span></a></li>						
+						<li><a href=# title=""><span>Technical docs</span></a></li>
+						<li><a href=# title=""><span>About</span></a></li>
+					</ul>
+				</nav>
+				
+				<h1>Overview</h1>
+				
+				<h1>Usage</h1>
+				
+				<h2>Step 1 - importing a XML file</h2>
+				
+				<h2>Step 2 - writing attribute classes</h2>
+				
+				<h2>Step 3 - mapping attributes</h2>
+				
+				<h2>Step 4 - importing your products</h2>
+				
+				<h1>Under the hood</h1>
+				
+				<h2>Overview</h2>
+				
+				<p>uml models // magento module structure // xml parser // layout // testify</p>
+				
+				<h1>Writing unit tests</h1>
+				
+				<h1>Technical docs</h1>
+				
+				<h1>About</h1>
+				
+			</div>
+			
+			<div class="grid-16 grid">
+				<a href="http://tweakit.eu/" target="_blank" class=logo>
+					<img src="img/tweakit.png" alt="TweakIT" title="">
+				</a>
+			</div>			
+			
+		</div>
 
-    <h1><a href="https://github.com/TweakIT/Ezimport">Ezimport</a>
-      <span class="small">by <a href="https://github.com/TweakIT">TweakIT</a></span></h1>
-
-    <div class="description">
-      This simple tool provides developer/shop owners with a platform which makes mapping products from XML and/or CSV files to magento products for importing easier.
-    </div>
-
-    
-
-    
-
-    
-
-    
-
-    
-      <h2>Authors</h2>
-      <p>Erfan Imani (erfan@tweakit.eu)<br/>      </p>
-    
-
-    
-      <h2>Contact</h2>
-      <p>Erfan (erfan@tweakit.eu)<br/>      </p>
-    
-
-    <h2>Download</h2>
-    <p>
-      You can download this project in either
-      <a href="https://github.com/TweakIT/Ezimport/zipball/master">zip</a> or
-      <a href="https://github.com/TweakIT/Ezimport/tarball/master">tar formats.
-    </p>
-    <p>You can also clone the project with <a href="http://git-scm.com">Git</a>
-      by running:
-      <pre>$ git clone git://github.com/TweakIT/Ezimport</pre>
-    </p>
-
-    <div class="footer">
-      get the source code on GitHub : <a href="https://github.com/TweakIT/Ezimport">TweakIT/Ezimport</a>
-    </div>
-
-  </div>
-
-<script type=\"text/javascript\">
-var gaJsHost = ((\"https:\" == document.location.protocol) ? \"https://ssl.\" : \"http://www.\");
-document.write(unescape(\"%3Cscript src='\" + gaJsHost + \"google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E\"));
-</script>
-<script type=\"text/javascript\">
-try {
-var pageTracker = _gat._getTracker("UA-27679031-1");
-pageTracker._trackPageview();
-} catch(err) {}</script>"
+	</header>
+	
 </body>
 </html>
