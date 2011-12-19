@@ -64,28 +64,36 @@ TYPE
 .island.promo,
 pre,
 code{
-	background-color:#fef8c4;
+	background-color:#eff8f9;background-color:#fef8c4;
+	
 }
 
 .gold{
 	color: @tweakit-gold;
+	text-shadow: 1px 1px 0 darken(@tweakit-gold, 25%);
 }
 .blue{
 	color: @tweakit-blue;
+	text-shadow: 1px 1px 0 darken(@tweakit-blue, 25%);
 }
-
+a:active,
+a:focus{
+	/* Give clicked links a depressed effect. Actually, dont do this cause its messes up the github ribbon.*/
+	position:static;
+}
 /*------------------------------------*\
 	$MAIN
 \*------------------------------------*/
 html{
 	font-family:sans-serif;
+	background: #ffffff;
 }
 
 .featured li {
 	padding: 1em 0;
 }
 
-.title{
+header .title{
 	font-size: 5em;
 }
 

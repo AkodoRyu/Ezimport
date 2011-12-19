@@ -4,7 +4,7 @@
 	<meta charset=UTF-8>
 	<meta name=viewport content="width=device-width, initial-scale=1, minimum-scale=1.0, maximum-scale=1.0">
 
-	<title>TweakIT</title>
+	<title>Ezimport - Magento XML map and import platform</title>
 	
 	<!-- The framework -->
 	<link rel=stylesheet href=css/inuit.css>
@@ -12,8 +12,11 @@
 	<link rel=stylesheet href=css/grid.inuit.css>
 
 	<link rel="stylesheet/less" type="text/css" href="css/styles.less">
-	<script src="js/less.js" type="text/javascript"></script>
 
+	<script src="js/less.js" type="text/javascript"></script>	
+	
+	<link rel=stylesheet href=css/github.css>
+	
 	<!--[if lt IE 9]>
 	<script src="js/html5.js"></script>
 	<![endif]-->	
@@ -39,7 +42,7 @@
 
 <body>
 
-	<a href="https://github.com/TweakIT/Ezimport"><img style="position: absolute; top: 0; right: 0; border: 0;" src="http://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png" alt="Fork me on GitHub" /></a>
+	<a class="github-ribbon" href="https://github.com/TweakIT/Ezimport"><img style="position: absolute; top: 0; right: 0; border: 0;" src="http://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png" alt="Fork me on GitHub" /></a>
 	
 	<header class="wrapper header">
 
@@ -92,14 +95,17 @@
 			
 			<div class="grid-5 grid">
 				<h2>Import your file</h2>
+				<img src=img/add-xml.jpg />
 			</div>
 			
 			<div class="grid-6 grid">
 				<h2>Map XML fields</h2>
+				<img src=img/mapper.jpg />
 			</div>
 			
 			<div class="grid-5 grid">
 				<h2>Import your products</h2>
+				<img src=img/import.jpg />
 			</div>
 				
 			<div class="grid-16 grid">
@@ -121,15 +127,15 @@
 				<p>The class must implement the &quot;Tweakit_Ezimport_Helper_IAttribute&quot; interface and have the following public methods:</p>
 				
 				<ul>
-					<li><pre>getName()</pre></li>
-					<li><pre>getIdentifier()</pre></li>
-					<li><pre>getPreview($data)</pre></li>
-					<li><pre>getName(Mage_Catalog_Model_Product $product, $data)</pre></li>
+					<li><pre class=php>getName()</pre></li>
+					<li><pre class=php>getIdentifier()</pre></li>
+					<li><pre class=php>getPreview($data)</pre></li>
+					<li><pre class=php>getName(Mage_Catalog_Model_Product $product, $data)</pre></li>
 				</ul>
 					
 				<p>The Baseimage attribute (Baseimage.php), for instance, looks something like this:</p>
 				
-				<pre>
+				<pre class=php>
 class Tweakit_Ezimport_Helper_Attributes_Baseimage implements Tweakit_Ezimport_Helper_IAttribute {
 
 	public function getName() {
@@ -138,14 +144,14 @@ class Tweakit_Ezimport_Helper_Attributes_Baseimage implements Tweakit_Ezimport_H
 </pre>	
 	<p>getName should return the name of the attribute. The name will be the label showed in the mapper, 
 	so you know what to drag to this attribute.</p>
-<pre>
+<pre class=php>
 	public function getIdentifier() {
 		return 'baseimage';	
 	}
 </pre>	
 	<p>Should return an unique identifier of the attribute. The identifier of this attribute will 
 	be associated with the XML field and this pair is saved to the database.</p>
-<pre>	
+<pre class=php>
 	public function getPreview($content) {
 		return '&lt;image width="200px" src="'.$content.'" alt="'.$content.' (image not available)" />';
 	}
@@ -155,7 +161,7 @@ class Tweakit_Ezimport_Helper_Attributes_Baseimage implements Tweakit_Ezimport_H
 	In this case the image will be displayed instead of the URL. If the image isnt available, an 
 	alternate text will be shown. If we wanted the URL to be shown, we would simply do 
 	return &quot;$content&quot; without actually doing anything with the value.</p>
-<pre>
+<pre class=php>
 	public function setData(Mage_Catalog_Model_Product $product, $data) {
 		
 		//This array is needed for Magento to specify some details about the image
@@ -197,7 +203,7 @@ class Tweakit_Ezimport_Helper_Attributes_Baseimage implements Tweakit_Ezimport_H
 	<p>This is the most important method. When a product gets imported, the setData method will 
 	be called to set the data in the Magento product. We can do any transformation to the XML 
 	value that we want, before it gets saved in the Magento product.</p>
-<pre>		
+<pre class=php>
 	}
 	
 }</pre>
@@ -208,9 +214,23 @@ class Tweakit_Ezimport_Helper_Attributes_Baseimage implements Tweakit_Ezimport_H
 				<p>And thats all there is to it. Adding a file is enough. When mapping a XML, Ezimport will scan the Attributes folder and find your new attribute.</p>
 				
 				<h2>Step 3 - mapping attributes</h2>
-				<p>Coming soon</p>
+
+				<p>After your attributes are configured, you can start mapping your XML&#39;s. Click map on the XML you wish to map. The blocks on the left represent the fields in the xml. Drag these to your attributes. You dont have to map al fields. And not all attributes have to have a field. Click save when you are done</p>
+			
+				<img src=img/mapper2.jpg />
+				
+				<p></p>
+				
+				<div class="message info">If you map the XML for a second time, the previous maps will be removed.</div>
+				
+				<p></p>
+				
 				<h2>Step 4 - importing your products</h2>
-				<p>Coming soon</p>
+				
+				<p>You can now import the products into the Magento catalog. Keep in mind this is a work in progress, new features would be to select which products to import, into a catalog, manually edit some fields before importing, etc.</p>
+				
+				<p>You still have to configure the products before they appear in your shop. Adding a category, activating the product, adding some required data. etc.</p>
+				
 				<h1>Under the hood</h1>
 				
 				<p>Coming soon</p>
@@ -221,6 +241,22 @@ class Tweakit_Ezimport_Helper_Attributes_Baseimage implements Tweakit_Ezimport_H
 				<p>Coming soon</p>
 				<h1>About</h1>
 				<p>Coming soon</p>
+				<h1>Comments</h1>
+<div id="disqus_thread"></div>
+<script type="text/javascript">
+    /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+    var disqus_shortname = 'ezimport'; // required: replace example with your forum shortname
+
+    /* * * DON'T EDIT BELOW THIS LINE * * */
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com" class="dsq-brlink">blog comments powered by <span class="logo-disqus">Disqus</span></a>				
+				
 			</div>
 			
 			<div class="grid-16 grid">
@@ -232,6 +268,14 @@ class Tweakit_Ezimport_Helper_Attributes_Baseimage implements Tweakit_Ezimport_H
 		</div>
 
 	</article>
+	
+	<script type="text/javascript" src="js/jquery-1.7.1.min.js"></script>
+	<script type="text/javascript" src="js/highlight.pack.js"></script>
+	<script type="text/javascript">
+		$(document).ready(function() {
+		  $('pre').each(function(i, e) {hljs.highlightBlock(e, '    ')});
+		});
+	</script>
 
 </body>
 </html>
