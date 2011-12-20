@@ -19,6 +19,7 @@ TYPE
 \*------------------------------------*/
 @tweakit-blue: #264d9e;
 @tweakit-gold: #d7a247;
+@font-color: #333;
 
 /*------------------------------------*\
 	$SHARED FUNCTIONS
@@ -87,6 +88,7 @@ a:focus{
 html{
 	font-family:sans-serif;
 	background: #ffffff;
+	color: @font-color;
 }
 
 .featured li {
@@ -246,8 +248,19 @@ pre mark{
 
 h1, h2, h3, h4, h5, h6, .alpha, .beta, .gamma, .delta, .epsilon, .zeta{
 	font-family:Arial, sans-serif, Cantarell;
+	text-shadow: 1px 1px 0 lighten(@tweakit-gold, 25%);
 }
 
+.dir{
+	font-style: italic;
+	color: lighten(@font-color, 15%);
+}
+.dir:before{
+	content:'"';
+}
+.dir:after{
+	content:'"';
+}
 
 
 /*------------------------------------*\

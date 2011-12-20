@@ -83,13 +83,13 @@
 
 				<h1>Overview</h1>
 				
-				<p>Some retailers may have to deal with lots of wholesalers that all have their own XML markup. Ezimport lets you easily map the XML fields to your own attributes.</p>
+				<p>Some retailers may have to deal with lots of wholesalers that all have their own XML markup. Ezimport lets you easily map the XML tags to your own attributes.</p>
 				
-				<p>You can also define custom behaviour for the conversion. For instance, a product in an XML file may have the following field:</p>
+				<p>You can also define custom behaviour for the conversion. For instance, a product in an XML file may have the following tag:</p>
 				
 				<p><pre>&lt;main_image>http://example.com/11dk2.jpg&lt;/main_image></pre></p>
 				
-				<p>Ezimport provides you with a platform that lets you define exactly what&#39;s going to happen with this XML field when you import products from this XML. In fact, Ezimport already provides you with an attribute class that downloads the image to the server and tells the Magento product to use that image as its base image and thumbnail. This attribute is called &quot;Base image&quot;.</p>
+				<p>Ezimport provides you with a platform that lets you define exactly what&#39;s going to happen with this XML tag when you import products from this XML. In fact, Ezimport already provides you with an attribute class that downloads the image to the server and tells the Magento product to use that image as its base image and thumbnail. This attribute is called &quot;Base image&quot;.</p>
 			
 			</div>
 			
@@ -99,7 +99,7 @@
 			</div>
 			
 			<div class="grid-6 grid">
-				<h2>Map XML fields</h2>
+				<h2>Map XML tags</h2>
 				<img src=img/mapper.jpg />
 			</div>
 			
@@ -150,7 +150,7 @@ class Tweakit_Ezimport_Helper_Attributes_Baseimage implements Tweakit_Ezimport_H
 	}
 </pre>	
 	<p>Should return an unique identifier of the attribute. The identifier of this attribute will 
-	be associated with the XML field and this pair is saved to the database.</p>
+	be associated with the XML tag and this pair is saved to the database.</p>
 <pre class=php>
 	public function getPreview($content) {
 		return '&lt;image width="200px" src="'.$content.'" alt="'.$content.' (image not available)" />';
@@ -215,33 +215,74 @@ class Tweakit_Ezimport_Helper_Attributes_Baseimage implements Tweakit_Ezimport_H
 				
 				<h2>Step 3 - mapping attributes</h2>
 
-				<p>After your attributes are configured, you can start mapping your XML&#39;s. Click map on the XML you wish to map. The blocks on the left represent the fields in the xml. Drag these to your attributes. You dont have to map al fields. And not all attributes have to have a field. Click save when you are done</p>
+				<p>After your attributes are configured, you can start mapping your XML&#39;s. Click map on the XML you wish to map. The blocks on the left represent the tags in the xml. Drag these to your attributes. You dont have to map al tags. And not all attributes have to have a tag. Click save when you are done</p>
 			
 				<img src=img/mapper2.jpg />
-				
-				<p></p>
-				
-				<div class="message info">If you map the XML for a second time, the previous maps will be removed.</div>
-				
-				<p></p>
+
+				<p class="message info">If you map the XML for a second time, the previous maps will be removed.</p>
 				
 				<h2>Step 4 - importing your products</h2>
 				
-				<p>You can now import the products into the Magento catalog. Keep in mind this is a work in progress, new features would be to select which products to import, into a catalog, manually edit some fields before importing, etc.</p>
+				<p>You can now import the products into the Magento catalog. Keep in mind this is a work in progress, new features would be to select which products to import, into a catalog, manually edit some tags before importing, etc.</p>
 				
 				<p>You still have to configure the products before they appear in your shop. Adding a category, activating the product, adding some required data. etc.</p>
 				
 				<h1>Under the hood</h1>
 				
-				<p>Coming soon</p>
+				<h2>General</h2>
+				
+				<p>Ezimport uses a XML page layout file for letting Magento know which blocks and templates to use. It can be found in <span class=dir>app/design/adminhtml/default/default/layout/ezimport.xml</span>. The templates can be found in <span class=dir>app/design/adminhtml/default/default/template/ezimport/</span>			.</p>
+				
+				<p>The main page uses the Mage_Adminhtml_Block_Widget_Container and Mage_Adminhtml_Block_Widget_Grid classes are used for displaying the XML entities. The rest is fairly straightforward usage of a combination of blocks and templates.</p>
+				
+				<h2>Models</h2>
+				
+				<p>Ezimport uses two models: maps, and sources. These are both non-EAV models as their attributes don&#39;t have to change during normal usage.</p>
+				
+				<img src=img/models.png />
+				
+				<p>A Map holds the relation between a XML product-tag and an attribute helper class.</p>
+				
+				<p>A Source is more complicated; besides holding the URL of the XML on the server, it has methods for converting the XML data. These methods will be described later in greater detail.</p>
+				
+				<h2>Adding XML&#39;s</h2>
+				
+				<p>The Tweakit_Ezimport_SourceController takes care of adding new XML&#39;s. The processNewXmlAction method receives post data and chooses what helper to load. There are currently three ways to make a new source: URL, file upload and direct input. Each way has its own helper. These helpers all extend Tweakit_Ezimport_Helper_Xml, which has methods for validating the XML and generating the filename.</p>
+				
+				<p>Once the XML is saved on the server, the Source can be configured with its new URL.</p>
+				
+				<p class="message info"><a href="http://php.net/manual/en/book.xmlreader.php" target=_blank title="PHP.net">XMLReader</a> is used to validate the XML.</p>
+				
+				<h2>Mapping XML&#39;s</h2>
+				
+				<p>The Tweakit_Ezimport_MapController class takes care of mapping XML&#39;s. Tweakit_Ezimport_Block_Map_Edit has two important methods: getDraggable and getDroppable.</p>
+				
+				<p>The getDraggable method returns an array of tags from a product in the XML. This is how it works: the getProductAttributes method of a Source model first parses the XML into an array  by using the Varien_Simplexml_Config class. It then uses PHP&#39;s array_unique function to get all the attributes.</p>
+				
+				<p>The getDroppable method returns an array with all the attribute helper classes. The Tweakit_Ezimport_Helper_Attribute has a method called getAttributes. This method looks in the Helper/Attributes directory of Ezimport for php files. The classes in these files then get initialized. </p>
+				
+				<p class="message info">The edit maps screen uses jQuery&#39;s <a href="http://jqueryui.com/demos/draggable/" target=_blank>draggable</a> and <a href="http://jqueryui.com/demos/droppable/" target=_blank>droppable</a> plugins.</p>
+				
+				<p>When the user hits submit, a json datastructure will be send with POST containing the paired tags and attributes. These maps will get saved in the database.</p>
+
+				<h2>Viewing and importing products</h2>
+				
+				<p>Coming soon.</p>
 				
 				<h1>Writing tests</h1>
+				
 				<p>Coming soon</p>
+				
 				<h1>Technical docs</h1>
+				
 				<p>Coming soon</p>
+				
 				<h1>About</h1>
+				
 				<p>Coming soon</p>
+				
 				<h1>Comments</h1>
+				
 <div id="disqus_thread"></div>
 <script type="text/javascript">
     /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
