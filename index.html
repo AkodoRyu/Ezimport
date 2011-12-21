@@ -257,7 +257,7 @@ class Tweakit_Ezimport_Helper_Attributes_Baseimage implements Tweakit_Ezimport_H
 				
 				<p>The Tweakit_Ezimport_MapController class takes care of mapping XML&#39;s. Tweakit_Ezimport_Block_Map_Edit has two important methods: getDraggable and getDroppable.</p>
 				
-				<p>The getDraggable method returns an array of tags from a product in the XML. This is how it works: the getProductAttributes method of a Source model first parses the XML into an array  by using the Varien_Simplexml_Config class. It then uses PHP&#39;s array_unique function to get all the attributes.</p>
+				<p>The getDraggable method returns an array of tags from a product in the XML. This is how it works: the getProductAttributes method of a Source model first parses the XML into an array  by using the Varien_Simplexml_Config class. It then uses PHP&#39;s <a href="http://php.net/manual/en/function.array-unique.php" target=_blank>array_unique</a> function to get all the attributes.</p>
 				
 				<p>The getDroppable method returns an array with all the attribute helper classes. The Tweakit_Ezimport_Helper_Attribute has a method called getAttributes. This method looks in the Helper/Attributes directory of Ezimport for php files. The classes in these files then get initialized. </p>
 				
@@ -267,7 +267,85 @@ class Tweakit_Ezimport_Helper_Attributes_Baseimage implements Tweakit_Ezimport_H
 
 				<h2>Viewing and importing products</h2>
 				
-				<p>Coming soon.</p>
+				<p>The Tweakit_Ezimport_SourceController class is, besides adding XML&#39;s, also responsible for viewing and importing products.</p>
+				
+				<p>The source model has a getMappedProductsArray method. This method returns an array with the XML tags mapped to the correct attribute.</p>
+				
+				<p>Lets say your XML looks like this:</p>
+				
+				<p><pre>
+&lt;container>
+	&lt;product>
+		&lt;pname>MIONIX SAIPH 3200&lt;/pname>
+		&lt;short_desc>Saiph got its name from the sixth brightest star in the constellation Orion.&lt;/short_desc>
+		&lt;img_url>http://example.com/img/p/25-85.jpg&lt;/img_url>
+		&lt;some_data>Lorem ipsum.&lt;/some_data>
+	&lt;/product>
+	&lt;product>
+		&lt;pname>Coolbay HX&lt;/pname>
+		&lt;short_desc>Chassis size type: Mid tower. Motherboard form factor: ATX, Micro ATX&lt;/short_desc>
+		&lt;img_url>http://example.com/img/p/30-101.jpg&lt;/img_url>
+		&lt;some_data>Lorem ipsum.&lt;/some_data>
+	&lt;/product>
+&lt;/container>
+				</pre></p>
+				
+				<p>First, the method makes a conversion table like this:</p>
+				
+				<p><pre class=php>
+Array	{
+			["name"] 			=> "pname",
+			["description"] 		=> "short_desc",
+			["baseimage"]		=> "img_url"
+		}				
+				</pre></p>
+				
+				<p>Ezimport uses this conversion table to make the final array. </p>
+				
+				<p><pre class=php>$productscontainer = $this->getProductsContainer();</pre></p>
+				
+				<p>This method finds the product container in the XML. It looks for the second to last deepest nested tag and checks if there are more than one of these. This means that XML files that are structured as the follow example, can be recognized:</p>
+				<p><pre class=xml>
+&lt;xml>
+	&lt;maincontainer>
+		&lt;product_container>
+		&lt;products>
+			&lt;product>
+				&lt;name>Lorem&lt;/name>
+				&lt;description>Lorem&lt;/description>
+			&lt;/product>
+
+			&lt;product>
+				&lt;name>Ipsum &lt;/name>
+				&lt;description>Ipsum &lt;/description>
+			&lt;/product>
+		&lt;/products>
+		&lt;product_container>
+	&lt;/maincontainer>
+&lt;/xml>
+				</pre></p>
+				
+				<p>It does not matter how deep the main product container is nested.</p> 
+				
+				<p>However, the main problem with this approach is that products which have nested tags in them, can not properly be recognized.</p>
+				
+				<p>Unfortunately, the following XML currently fails:</p>
+				<p><pre class=xml>				
+&lt;products>
+	&lt;product>
+		&lt;name>Lorem&lt;/name>
+		&lt;desicriptions>
+			&lt;short_description>Lorem&lt;/short_description>
+			&lt;long_description>Lorem&lt;/long_description>
+			&lt;specification>Lorem&lt;/specification>
+		&lt;/descriptions>
+		&lt;packaging_info>
+			&lt;length>10cm&lt;/length>
+			&lt;width>20cm&lt;/width>
+			&lt;weight>5kg&lt;/weight>
+		&lt;/packaging_info>
+&lt;/products>				
+				</pre></p>				
 				
 				<h1>Writing tests</h1>
 				
