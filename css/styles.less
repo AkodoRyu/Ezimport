@@ -20,6 +20,7 @@ TYPE
 @tweakit-blue: #264d9e;
 @tweakit-gold: #d7a247;
 @font-color: #333;
+@island-color: #ececec;
 
 /*------------------------------------*\
 	$SHARED FUNCTIONS
@@ -65,7 +66,8 @@ TYPE
 .island.promo,
 pre,
 code{
-	background-color:#eff8f9;background-color:#fef8c4;
+	background-color:#eff8f9;
+	background-color: @island-color;
 	
 }
 
@@ -224,11 +226,22 @@ header nav ul li a.active{
 	color: rgba(255, 255, 255, 0.9);
     text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
 	text-align: center;
+	.transition-property("background-color");
+	.transition-duration(0.3s);
 }
 
 .button.alt{
 	background-color: @tweakit-gold;
 }
+
+/*.button:hover{
+	text-decoration: none;
+	background-color: lighten(@tweakit-blue, 10%);
+}
+
+.button.alt:hover{
+	background-color: lighten(@tweakit-gold, 10%);	
+}*/
 
 span[title]{
 	text-decoration: underline;
@@ -245,6 +258,7 @@ mark{
 }
 pre{
 	padding:10px;
+	border: 3px dashed #fff;
 }
 pre code,
 pre mark{
@@ -254,6 +268,8 @@ pre mark{
 h1, h2, h3, h4, h5, h6, .alpha, .beta, .gamma, .delta, .epsilon, .zeta{
 	font-family:'Duru Sans', Arial, sans-serif, Cantarell;
 }
+
+.tagline { line-height: 2em;}
 
 .dir{
 	font-style: italic;
