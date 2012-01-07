@@ -278,9 +278,23 @@ class Tweakit_Ezimport_Helper_Attributes_Baseimage implements Tweakit_Ezimport_H
 				
 				<p>The Tweakit_Ezimport_SourceController takes care of adding new XML&#39;s. The processNewXmlAction method receives post data and chooses what helper to load. There are currently three ways to make a new source: URL, file upload and direct input. Each way has its own helper. These helpers all extend Tweakit_Ezimport_Helper_Xml, which has methods for validating the XML and generating the filename.</p>
 				
+				<img src=img/xmlhelpers.png />
+				
 				<p>Once the XML is saved on the server, the Source can be configured with its new URL.</p>
 				
-				<p class="message info"><a href="http://php.net/manual/en/book.xmlreader.php" target=_blank title="PHP.net">XMLReader</a> is used to validate the XML.</p>
+				<p class="message info"><a href="http://docs.magentocommerce.com/Varien/Varien_Simplexml/Varien_Simplexml_Config.html" target=_blank title="PHP.net">Varien_Simplexml_Config</a> is used to validate the XML.</p>
+				
+				<h2>Attribute Helpers</h2>
+				
+				<p>Tweakit_Ezimport_Helper_Attribute is the class responsible for getting all the attribute helpers. The following piece of code returns an array with all the attribute helpers:</p>
+				
+<pre class=php>
+$attributes = Mage::helper('ezimport/attribute')->getAttributes();
+</pre>
+				
+				<p>Here is an UML diagram:</p>
+				
+				<img src=img/attributehelpers.png />
 				
 				<h2>Mapping XML&#39;s</h2>
 				
