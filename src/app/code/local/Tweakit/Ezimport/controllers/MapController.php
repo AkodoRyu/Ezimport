@@ -1,5 +1,14 @@
 <?php
 
+/**
+ * Map controller / manages map objects
+ *
+ * @author 		http://twitter.com/erfanimani
+ * @copyright 	Copyright (c) 2012 TweakIT.eu
+ * @link		https://github.com/erfanimani/Ezimport
+ * @license		http://www.opensource.org/licenses/mit-license.html
+ */
+ 
 class Tweakit_Ezimport_MapController extends Mage_Adminhtml_Controller_Action
 {
     public function indexAction()
@@ -65,8 +74,13 @@ class Tweakit_Ezimport_MapController extends Mage_Adminhtml_Controller_Action
 				
 				$model->setSourceId($params['id'])
 					->setHelperAttribute(trim($key))
-					->setSourceAttribute(trim($value))
-					->save();
+					->setSourceAttribute(trim($value));
+					
+				if($model->validate())
+					$model->save();
+				else {
+					Mage::throwException($this->__('Invalid map.'));
+				}
 			}
 			
 			$message = $this->__('Your form has been submitted successfully.');

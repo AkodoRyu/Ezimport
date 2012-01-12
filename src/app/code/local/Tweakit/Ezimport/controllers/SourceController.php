@@ -1,5 +1,14 @@
 <?php
 
+/**
+ * Source Controller / manages source objects
+ *
+ * @author 		http://twitter.com/erfanimani
+ * @copyright 	Copyright (c) 2012 TweakIT.eu
+ * @link		https://github.com/erfanimani/Ezimport
+ * @license		http://www.opensource.org/licenses/mit-license.html
+ */
+ 
 class Tweakit_Ezimport_SourceController extends Mage_Adminhtml_Controller_Action
 {
 
@@ -98,7 +107,10 @@ class Tweakit_Ezimport_SourceController extends Mage_Adminhtml_Controller_Action
 				Mage::throwException($this->__('XML file is not valid'));
 			}
 			
-			$source->save();
+			if($source->validate())
+				$source->save();
+			else
+				Mage::throwException($this->__('Provided source is not valid'));
 			
 			$message = $this->__('Your form has been submitted successfully.');
 			Mage::getSingleton('adminhtml/session')->addSuccess($message);			
@@ -109,6 +121,13 @@ class Tweakit_Ezimport_SourceController extends Mage_Adminhtml_Controller_Action
 		$this->_redirect('*/*');				
 	}
 	
+	/**
+	 * 
+	 * processNewCsvAction
+	 * 
+	 * (doesnt work) 
+	 * 
+	 */
 	public function processNewCsvAction() {
 		$post = $this->getRequest()->getPost();
 
@@ -262,7 +281,12 @@ class Tweakit_Ezimport_SourceController extends Mage_Adminhtml_Controller_Action
 						}
 						
 						//Zend_Debug::dump( $magento_product->getName() . $magento_product->getDescription());
-						
+					
+					/*
+					 * You can (and should) call $magento_product->validate() here, but you need to make sure there are attribute helpers
+					 * for all of the required Magento product attributes.
+					 * 
+					 */
 					$magento_product->save();
 
 			}			

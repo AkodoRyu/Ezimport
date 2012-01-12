@@ -1,24 +1,35 @@
 <?php
 
+/**
+ * Xml helper
+ *
+ * @author 		http://twitter.com/erfanimani
+ * @copyright 	Copyright (c) 2012 TweakIT.eu
+ * @link		https://github.com/erfanimani/Ezimport
+ * @license		http://www.opensource.org/licenses/mit-license.html
+ */
+
 class Tweakit_Ezimport_Helper_Xml extends Mage_Core_Helper_Abstract
 {
+	
 	public function isValid($file){
 		
-		$xml = new XMLReader();
-		$xml->open($file);
-		$xml->setParserProperty(XMLReader::VALIDATE, true);
-		
-		$valid = $xml->isValid();
+		$xmlObj = new Varien_Simplexml_Config($file);
+		$array = $xmlObj->getNode();
 
-		$xml->close();
+		if($array instanceof Varien_Simplexml_Element)
+			return true;
 		
-		return $valid;
+		return false;
 	}
 	
 	public function getNewXmlFilePath(){
-		$path = $this->getPath() . $this->getNewXmlFileName();
-		//if(is_writable($path) === false)
-			//throw new Exception("Cannot write file to ". $path . ". Check permissions.");
+			
+		$dir = $this->getPath();
+		$path = $dir . $this->getNewXmlFileName();
+		
+		if(file_exists($dir) === false)
+			throw new Exception("Cannot write file to ". $path . ". Check permissions.");
 		
 		return $path;
 	}

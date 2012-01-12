@@ -4,7 +4,7 @@ class Tweakit_Ezimport_Helper_Xml_Url extends Tweakit_Ezimport_Helper_Xml
 {
 	
 	public function createFile($url) {
-
+		
 		if( empty($url) ) {
 			Mage::throwException($this->__('Url is empty.'));
 		}

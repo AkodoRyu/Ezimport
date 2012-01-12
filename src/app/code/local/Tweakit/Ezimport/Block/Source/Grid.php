@@ -1,5 +1,15 @@
 <?php
 
+/**
+* Source Grid
+* This is the grid thats on the main page
+*
+* @author 		http://twitter.com/erfanimani
+* @copyright 	Copyright (c) 2012 TweakIT.eu
+* @link			https://github.com/erfanimani/Ezimport
+* @license		http://www.opensource.org/licenses/mit-license.html
+*/
+
 class Tweakit_Ezimport_Block_Source_Grid extends Mage_Adminhtml_Block_Widget_Grid
 {
 
@@ -103,6 +113,25 @@ class Tweakit_Ezimport_Block_Source_Grid extends Mage_Adminhtml_Block_Widget_Gri
                 'sortable'  => false
         ));
 		
+		$this->addColumn('action3',
+            array(
+                'header'    => '',
+                'width'     => '',
+                'type'      => 'action',
+                'getter'     => 'getId',
+                'actions'   => array(
+                    array(
+                        'caption' => Mage::helper('ezimport')->__('View products'),
+                        'url'     => array(
+                            'base'=>'*/source/view'
+                        ),
+                        'field'   => 'id'
+                    )
+                ),
+                'filter'    => false,
+                'sortable'  => false
+        ));
+		
         $this->addColumn('action2',
             array(
                 'header'    => '',
@@ -122,80 +151,8 @@ class Tweakit_Ezimport_Block_Source_Grid extends Mage_Adminhtml_Block_Widget_Gri
                 'sortable'  => false,
 				'confirm' => Mage::helper('ezimport')->__('Are you sure?')				
         ));
-		
-        $this->addColumn('action3',
-            array(
-                'header'    => '',
-                'width'     => '',
-                'type'      => 'action',
-                'getter'     => 'getId',
-                'actions'   => array(
-                    array(
-                        'caption' => Mage::helper('ezimport')->__('View/Import products'),
-                        'url'     => array(
-                            'base'=>'*/source/view'
-                        ),
-                        'field'   => 'id'
-                    )
-                ),
-                'filter'    => false,
-                'sortable'  => false
-        ));
-	
-        $this->addColumn('action4',
-            array(
-                'header'    => '',
-                'width'     => '',
-                'type'      => 'action',
-                'getter'     => 'getId',
-                'actions'   => array(
-                    array(
-                        'caption' => Mage::helper('ezimport')->__('Import all products'),
-                        'url'     => array(
-                            'base'=>'*/source/processImport'
-                        ),
-                        'field'   => 'id'
-                    )
-                ),
-                'filter'    => false,
-                'sortable'  => false,
-				'confirm' => Mage::helper('ezimport')->__('This will import all the products in this source to the Magento Catalog. Do you want to continue?')
-        ));		
-		
-		
-/*        $this->addColumn('subject_id',
-            array(
-                'header'=> Mage::helper('iprovider')->__('Subject'),
-                'index' => 'subject_id',
-                'options' => Mage::getSingleton('iprovider/subject')->getOptionArray(),
-        ));
-        $this->addColumn('date_time',
-            array(
-                'header'=> Mage::helper('iprovider')->__('Date'),
-                'index' => 'date_time',
-        ));
-        $this->addColumn('message',
-            array(
-                'header'=> Mage::helper('iprovider')->__('Message'),
-                'index' => 'message',
-        ));
-*/
 
         return parent::_prepareColumns();
     }
 
-    /* Makes Grid clickable */
-    public function getGridUrl()
-    {
-        return $this->getUrl('*/*/grid', array('_current'=>true));
-    }
-
-    /* Makes row clickable */
-    public function getRowUrl($row)
-    {
-        return $this->getUrl('*/*/products', array(
-            'store'=>$this->getRequest()->getParam('store'),
-            'id'=>$row->getId())
-        );
-    }
 }

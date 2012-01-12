@@ -1,12 +1,13 @@
 <?php
 
-#####################################################################################
-#																					#
-#																					#
-#						Erfan Imani | Juli 2011 | TweakIT.eu						#
-#																					#
-#																					#
-#####################################################################################
+/**
+ * Source Model
+ *
+ * @author 		http://twitter.com/erfanimani
+ * @copyright 	Copyright (c) 2012 TweakIT.eu
+ * @link		https://github.com/erfanimani/Ezimport
+ * @license		http://www.opensource.org/licenses/mit-license.html
+ */
 
 class Tweakit_Ezimport_Model_Source extends Mage_Core_Model_Abstract 
 {
@@ -18,19 +19,44 @@ class Tweakit_Ezimport_Model_Source extends Mage_Core_Model_Abstract
 	
 	public function delete()
 	{
+		//Delete the XML file associated with the source object
 		if(file_exists($this->getUrl()))
 			unlink($this->getUrl());		
 		
 		return parent::delete();
 	}
 	
-	public function findProductsContainer($array) {
+    public function validate()
+    {
+        $errors = array();
 
-		if(sizeof($array)>2) {
+        if (!Zend_Validate::is( trim($this->getName()) , 'NotEmpty')) {
+            $errors[] = 'The name cannot be empty.';
+        }
+
+        if (!Zend_Validate::is( trim($this->getUrl()) , 'NotEmpty')) {
+            $errors[] = 'The URL cannot be empty.';
+        }
+
+        if (empty($errors)) {
+            return true;
+        }
+        return $errors;
+    }
+
+	/**
+	 * Recursive function, Finds the container in the XML which direct children are product-containers
+	 * 
+	 * @return Array
+	 */
+	public function findProductsContainer(Varien_Simplexml_Element $array) {
+
+		if(sizeof($array)>1) {
 			return $array;	
 		}
 		else {
 			
+			/*
 			if(is_array($array)) {
 				
 				foreach( $array as $key => $value ) {
@@ -42,35 +68,54 @@ class Tweakit_Ezimport_Model_Source extends Mage_Core_Model_Abstract
 				
 				}
 			
+			}*/
+			
+			if($array instanceof Varien_Simplexml_Element){
+				
+				foreach( $array->children() as $key => $value ){
+					
+					if($array instanceof Varien_Simplexml_Element){
+						
+						return $this->findProductsContainer($value);
+						
+					}
+					
+				}
+				
 			}
 			
 		}
 		
-	}	
+	}
 	
+	/**
+	 * Uses findProductsContainer
+	 */
 	public function getProductsContainer()
 	{
 		$xmlObj = new Varien_Simplexml_Config($this->getUrl());		
 		$array = $xmlObj->getNode();
-		
+
 		if(!$array) {
 			Mage::throwException('XML file has no attributes');
-		}	
-		
-		//Zend_Debug::dump($array);die();
+		}
 		
 		return $this->findProductsContainer($array);
 	}
 	
+	/*
+	 * Returns an array with the product attributes found in the XML
+	 * 
+	 */
 	public function getProductAttributes()
 	{
 		
-		$xmlObj = new Varien_Simplexml_Config($this->getUrl());		
+		/*$xmlObj = new Varien_Simplexml_Config($this->getUrl());		
 		$array = $xmlObj->getNode()->asArray();
 		
 		if(!$array) {
-			Mage::throwException('XML file has no attributes');
-		}	
+			Mage::throwException('XML file has no tags');
+		}*/
 		
 		/*		
 		$prodContainer = $this->findProductsContainer($array);
@@ -82,11 +127,11 @@ class Tweakit_Ezimport_Model_Source extends Mage_Core_Model_Abstract
 		Zend_Debug::dump($prodContainer);die();
 		*/
 		
-		foreach($array as $key => $value ) {
+		$prodContainer = $this->getProductsContainer()->asArray();
+		
+		foreach($prodContainer as $key => $value ) {
 			$array = array_unique($value);
 		}
-		
-		#$config = new Zend_Config_Xml($this->getUrl());
 		
 		if($array) {
 			foreach($array as $key => $value){
@@ -104,7 +149,7 @@ class Tweakit_Ezimport_Model_Source extends Mage_Core_Model_Abstract
 
 		/*
 		
-			Deze foreach maakt een conversie tabel. Zoiets dus:
+			This foreach loops makes a conversion table. Something like:
 			
 			Array	{
 						["name"] 			=> "NAAM"
@@ -113,7 +158,7 @@ class Tweakit_Ezimport_Model_Source extends Mage_Core_Model_Abstract
 						["Extra data"] 		=> "OMSCHRIJVING_KORT"
 					}
 		
-			De key representeerd de templateveldnaam (attribute) en de value de naam van het xml veld (resource attribute).
+		    The key represents the attribute helpers and the value represents the xml tag
 		
 		*/	
 
@@ -135,11 +180,14 @@ class Tweakit_Ezimport_Model_Source extends Mage_Core_Model_Abstract
 				
 		}
 		
-
-		/*
+		//Zend_Debug::dump($conversion_table); die();
 		
-			Deze functie returnt een array met assosiative arrays met key's uit de product template. 
-			Dus Array 	{
+		/*
+
+		    The next bit retuns an array with assosiative arrays with keys from the attribute helpers and product value's from the xml 
+		 
+			So something like:
+		 			 	{
 						
 						[0] => Array 	{
 										

@@ -1,7 +1,7 @@
 <div class="content-header">
     <table cellspacing="0" class="grid-header">
         <tr>
-            <td><h3 class="icon-head head-products">Add new XML or CSV</h3></td>
+            <td><h3 class="icon-head head-products">Add new XML</h3></td>
             <td class="a-right">
                 <button onclick="javascript:history.back()" class="scalable back" type="button"><span>Back</span></button>
             </td>            
@@ -15,10 +15,10 @@
 		$('cc_file').hide();
 		//$('cc_ftp').hide();
 		$('cc_directinput').hide();
-		$('cc_url_csv').hide();
-		$('cc_file_csv').hide();
+		//$('cc_url_csv').hide();
+		//$('cc_file_csv').hide();
 		//$('cc_ftp_csv').hide();
-		$('cc_directinput_csv').hide()		
+		//$('cc_directinput_csv').hide()		
 		if(id != 'cc')
 			$(id).show();
 	};
@@ -154,7 +154,7 @@
     </form>
 </div>
 
-
+<!--
 <div class="entry-edit">
     <form id="edit_form" name="edit_form" method="post" action="<?php echo $this->getUrl('*/*/processNewCsv') ?>">
         <input name="form_key" type="hidden" value="<?php echo Mage::getSingleton('core/session')->getFormKey() ?>" />
@@ -241,7 +241,7 @@
     </form>
 </div>
 
-<!--<div class="entry-edit">
+<div class="entry-edit">
     <form id="edit_form" name="edit_form" method="post" action="<?php echo $this->getUrl('*/*/processNewCsv') ?>">
         <input name="form_key" type="hidden" value="<?php echo Mage::getSingleton('core/session')->getFormKey() ?>" />
         <input name="r[type]" type="hidden" value="ftp" />
@@ -293,7 +293,7 @@
         	</div>
         </fieldset>
     </form>
-</div>-->
+</div>
 
 <div class="entry-edit">
     <form id="edit_form" name="edit_form" method="post" action="<?php echo $this->getUrl('*/*/processNewCsv') ?>">
@@ -335,4 +335,4 @@
             </div>
         </fieldset>
     </form>
-</div>
+</div>-->

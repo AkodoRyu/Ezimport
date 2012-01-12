@@ -22,20 +22,16 @@ $draggables = $this->getDraggable();
 ?>
 
  <div id="map_body">
-            <?php //echo $draggables[] ?>
-            <div id="map_event">
-                <p>Drag the xml fields you wish to map to the representing fields to the right.</p>
-            </div>    
-                                 
+                               
             <div id="map_left">
             
                 <div id="drop_unmapped" style="height: <?php echo count($draggables)*30+70; ?>px;" class="ui-widget-header drop big">
                 
-                    <p>Unmapped</p>
+                    <p>XML fields</p>
                     <?php foreach($draggables as $key => $value) {
-                        echo '<div id="drag_'.$value['name'].'" class="ui-widget-content drag">'	.PHP_EOL;
-                        echo $value['name']															.PHP_EOL;
-                        echo '</div>'																.PHP_EOL;
+                        echo '<div id="drag_'.$value['name'].'" class="ui-widget-content drag">'			.PHP_EOL;
+                        echo $value['name']																	.PHP_EOL;
+                        echo '</div>'																		.PHP_EOL;
                     }?>                              
                 </div>
                             

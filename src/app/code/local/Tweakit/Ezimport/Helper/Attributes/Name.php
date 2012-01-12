@@ -1,13 +1,5 @@
 <?php
 
-#####################################################################################
-#																					#
-#																					#
-#						Erfan Imani | July 2010 | TweakIT.eu						#
-#																					#
-#																					#
-#####################################################################################
-
 class Tweakit_Ezimport_Helper_Attributes_Name implements Tweakit_Ezimport_Helper_IAttribute{
 
 	public function getName() {

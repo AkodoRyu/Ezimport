@@ -1,12 +1,13 @@
 <?php
 
-#####################################################################################
-#																					#
-#																					#
-#						Erfan Imani | July 2010 | TweakIT.eu						#
-#																					#
-#																					#
-#####################################################################################
+/**
+ * Base attribute helper class
+ *
+ * @author 		http://twitter.com/erfanimani
+ * @copyright 	Copyright (c) 2012 TweakIT.eu
+ * @link		https://github.com/erfanimani/Ezimport
+ * @license		http://www.opensource.org/licenses/mit-license.html
+ */
 
 class Tweakit_Ezimport_Helper_Attribute {
 

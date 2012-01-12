@@ -1,16 +1,8 @@
 <?php
-/**
- * Catalog manage products block
- *
- * @category   Mage
- * @package    Mage_Adminhtml
- * @author      Magento Core Team <core@magentocommerce.com>
- */
+
 class Tweakit_Ezimport_Block_Source extends Mage_Adminhtml_Block_Widget_Container
 {
-    /**
-     * Set template
-     */
+
     public function __construct()
     {
         parent::__construct();
@@ -19,6 +11,9 @@ class Tweakit_Ezimport_Block_Source extends Mage_Adminhtml_Block_Widget_Containe
 
 	/**
 	* Overwrite our own design folder
+	 * 
+	 * I got this from Alan Storm, so your templates can stay in your code/local/ dir instead of the design/adminhtml/default/default but it doesnt seem to work in 1.6 for some reason..
+	 * 
 	*/
 	/*public function fetchView($fileName)
 	{		
@@ -39,7 +34,7 @@ class Tweakit_Ezimport_Block_Source extends Mage_Adminhtml_Block_Widget_Containe
     protected function _prepareLayout()
     {
         $this->_addButton('add_new', array(
-            'label'   => Mage::helper('ezimport')->__('Add new XML/CSV'),
+            'label'   => Mage::helper('ezimport')->__('Add new XML'),
             'onclick' => "setLocation('{$this->getUrl('*/source/new')}')",
             'class'   => 'add'
         ));

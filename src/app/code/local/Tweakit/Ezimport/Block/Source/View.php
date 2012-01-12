@@ -1,16 +1,8 @@
 <?php
-/**
- * Catalog manage products block
- *
- * @category   Mage
- * @package    Mage_Adminhtml
- * @author      Magento Core Team <core@magentocommerce.com>
- */
+
 class Tweakit_Ezimport_Block_Source_View extends Tweakit_Ezimport_Block_Source
 {
-    /**
-     * Set template
-     */
+
     public function __construct()
     {
         parent::__construct();
@@ -25,7 +17,11 @@ class Tweakit_Ezimport_Block_Source_View extends Tweakit_Ezimport_Block_Source
 
     protected function _prepareLayout()
     {
-        /*$this->_addButton('add_new', array(
+        /*
+		 * Uncomment to get a direct import button. 
+		 * I didnt think this was a good idea because you first need to view the products to know if the interpreting has been successfull, after that you can import
+		 * 
+		 * $this->_addButton('add_new', array(
             'label'   => Mage::helper('ezimport')->__('Import'),
             'onclick' => "setLocation('{$this->getUrl('* /source/processImport')}')",
             'class'   => 'add',

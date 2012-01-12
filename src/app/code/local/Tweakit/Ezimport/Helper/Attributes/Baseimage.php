@@ -1,13 +1,14 @@
 <?php
 
-#####################################################################################
-#																					#
-#																					#
-#						Erfan Imani | July 2010 | TweakIT.eu						#
-#																					#
-#																					#
-#####################################################################################
-
+/**
+ * Baseimage attribute helper
+ *
+ * @author 		http://twitter.com/erfanimani
+ * @copyright 	Copyright (c) 2012 TweakIT.eu
+ * @link		https://github.com/erfanimani/Ezimport
+ * @license		http://www.opensource.org/licenses/mit-license.html
+ */
+ 
 class Tweakit_Ezimport_Helper_Attributes_Baseimage implements Tweakit_Ezimport_Helper_IAttribute{
 
 	public function getName() {
@@ -43,9 +44,7 @@ class Tweakit_Ezimport_Helper_Attributes_Baseimage implements Tweakit_Ezimport_H
 			$fileContents = curl_exec($ch);
 			$content_type = curl_getinfo($ch, CURLINFO_CONTENT_TYPE);
 			curl_close($ch);
-			
-			//Zend_Debug::dump($content_type);die();
-			
+
 			if($content_type === 'image/jpeg') {
 				
 				$newImg = imagecreatefromstring($fileContents);
@@ -59,41 +58,7 @@ class Tweakit_Ezimport_Helper_Attributes_Baseimage implements Tweakit_Ezimport_H
 					unlink($path);			
 			
 			}
-			
-			/*
-			$imagePath = $data;
-			
-			$arr = explode(".", $imagePath);
-			$file_extension = end($arr); //should be jpg
-			
-			//Zend_Debug::dump($imagePath);die();
-						
-			$handle = fopen($imagePath, "r");
-			if ($handle) { 
-			   while (!feof($handle)) { 
-				   $buffer .= fgets($handle, 4096); 
-			   }
 
-			   fclose($handle); 
-			} 
-			
-			
-			
-			if($mystring = fopen($filename, "wb")) { 
-				$handle = fopen($filename, "wb"); 
-				$numbytes = fwrite($handle, $buffer);
-				
-				fclose($handle);
-			
-			}
-			
-			if($numbytes>1){
-				$product->addImageToMediaGallery ($filename, $visibility, true, false); 	
-			}
-						
-			if(is_file($filename))
-				unlink($filename);
-			*/
 		}		
 		
 	}

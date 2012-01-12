@@ -3,7 +3,10 @@
 class Tweakit_Ezimport_Block_Template extends Mage_Core_Block_Template
 {
 	
-	/*public function fetchView($fileName)
+	/*
+	 * for reasoning, check fetchView in Source.php in this folder
+	 * 
+	 * public function fetchView($fileName)
 	{		
 		$this->setScriptPath(
 			Mage::getModuleDir('', 'Tweakit_Ezimport') .
