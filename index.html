@@ -89,8 +89,7 @@
 					<ul class="nav">
 						<li><a href=#overview title=""><span>Overview</span></a></li>
 						<li><a href=#usage title=""><span>Usage</span></a></li>
-						<li><a href=#under-the-hood title=""><span>Under the hood</span></a></li>
-						<li><a href=#writing-tests title=""><span>Writing tests</span></a></li>						
+						<li><a href=#under-the-hood title=""><span>Under the hood</span></a></li>				
 						<li><a href=#about title=""><span>About</span></a></li>
 						<li><a href=#comments title=""><span>Comments</span></a></li>
 					</ul>
@@ -141,7 +140,7 @@
 				
 				<h1>Installation</h1>
 				
-				<p>Ezimport is currently not available as a Magento Connect PEAR channel community extension. The files in the &quot;src&quot; folder have to be manually copied to the Magento folder. After this, it&#39;s usually a good idea to renew the cache.</p>
+				<p>Ezimport is currently not available as a Magento Connect PEAR channel community extension. The files in the &quot;src&quot; folder have to be copied to the Magento folder. The <a href="https://github.com/TweakIT/Ezimport/blob/master/src/app/code/local/Tweakit/Ezimport/sql/ezimport_setup/mysql4-install-0.1.0.php" title="View it on Github" target=_blank>installation script</a> will do the hard work. After all this, it is usually a good idea to renew the cache.</p>
 				
 				<h1 id=usage>Usage</h1>
 				
@@ -390,21 +389,15 @@ Array	{
 &lt;/products>				
 				</pre></p>				
 				
-				<h1 id=writing-tests>Writing tests</h1>
+				<h2 id=writing-tests>Unit test</h2>
 				
 				<p><a href="http://tutorialzine.com/projects/testify/" target=_blank>Testify</a> is used as the unit testing framework. Click <a href="http://tutorialzine.com/2011/11/lets-write-some-tests-testify-php/" target=_blank>here</a> for a tutorial on Testify.</p>
 				
 				<p>The default unit test can be run by calling the test.php script. You just need to make sure that the script includes app/Mage.php depending on where you place the script.</p>
 
-				<p>You can easily extend the standard Ezimport unit tests with your own XML&#39;s and/or attribute helper tests.</p>
+				<p>You can (and should) extend the standard Ezimport unit tests with your own XML&#39;s and/or attribute helper tests.</p>
 							
-				<h2>XML unit test</h2>
-				
-				<p>Coming soon.</p>
-				
-				<h2>Attribute helper unit test</h2>
-				
-				<p>Coming soon.</p>
+				<p>Keep the name and description attribute helpers in order for the unit test to work.</p>
 				
 				<h1 id=about>About</h1>
 				
