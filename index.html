@@ -107,38 +107,38 @@
 		
 			<div class="grid-16 grid">	
 
-				<p class="message warning">This is an alpha release. Use at your own risk.</p>
-
 				<h1 id=overview>Overview</h1>
 				
-				<p>Some retailers may have to deal with lots of wholesalers that all have their own XML markup. Ezimport lets you easily map the XML tags to your own attributes.</p>
+				<p>Some retailers have to deal with lots of wholesalers that all have their own XML markup. Ezimport lets you easily map the XML tags to your own attributes.</p>
 				
 				<p>You can also define custom behaviour for the conversion. For instance, a product in an XML file may have the following tag:</p>
 				
 				<p><pre>&lt;main_image>http://example.com/11dk2.jpg&lt;/main_image></pre></p>
 				
-				<p>Ezimport provides you with a platform that lets you define exactly what&#39;s going to happen with this XML tag when you import products from this XML. In fact, Ezimport already provides you with an attribute class that downloads the image to the server and tells the Magento product to use that image as its base image and thumbnail. This attribute is called &quot;Base image&quot;.</p>
+				<p>Ezimport provides you with a platform that lets you define exactly what&#39;s going to happen with this XML tag when you import products from this XML. In fact, Ezimport already provides you with an attribute class that downloads the image to the server and tells the Magento product to use that image as its base image and thumbnail. Click <a href="https://github.com/erfanimani/Ezimport/blob/master/src/app/code/local/Tweakit/Ezimport/Helper/Attributes/Baseimage.php" target=_blank>here</a> to see for yourself. The <span class=dir>setData</span> method manipulates the incoming XML data, which is an URL to an image, to something more usefull in a Magento product; an actual image.</p>
 			
 			</div>
 			
 			<div class="grid-5 grid">
-				<h2>Import your file</h2>
+				<h2>Import your XML file</h2>
 				<img src=img/add-xml.jpg />
 			</div>
 			
 			<div class="grid-6 grid">
-				<h2>Map XML tags</h2>
+				<h2>Map tags</h2>
 				<img src=img/mapper.jpg />
 			</div>
 			
 			<div class="grid-5 grid">
-				<h2>Import your products</h2>
+				<h2>Import products</h2>
 				<img src=img/import.jpg />
 			</div>
 				
 			<div class="grid-16 grid">
 				
 				<h1>Installation</h1>
+
+				<p class="message warning">Use at your own risk.</p>
 				
 				<p>Ezimport is currently not available as a Magento Connect PEAR channel community extension. The files in the &quot;src&quot; folder have to be copied to the Magento folder. The <a href="https://github.com/TweakIT/Ezimport/blob/master/src/app/code/local/Tweakit/Ezimport/sql/ezimport_setup/mysql4-install-0.1.0.php" title="View it on Github" target=_blank>installation script</a> will do the hard work. After all this, it is usually a good idea to renew the cache.</p>
 				
@@ -146,13 +146,13 @@
 				
 				<h2>Step 1 - importing a XML file</h2>
 				
-				<p>Click the Ezimport menu button, find the &quot;add new XML&quot; button in the top right corner and add a XML file by giving the URL, uploading a file or directly copy/pasting the XML file contents on the webpage.</p>
+				<p>Click on Ezimport in the Magento backoffice menu, find the &quot;add new XML&quot; button in the top right corner and add a XML file by giving the URL, uploading a file or directly copy/pasting the XML file contents on the webpage.</p>
 				
 				<h2>Step 2 - writing attribute classes</h2>
 				
-				<p>Create a new .php file in the /app/code/local/Tweakit/Ezimport/Helper/Attributes/ folder. Certain naming conventions must be followed: If you name your attribute &quot;color&quot; the file name must be &quot;color.php&quot; and the classname must be &quot;Tweakit_Ezimport_Helper_Attributes_Color&quot;.</p>
+				<p>Create a new .php file in the <span class=dir>/app/code/local/Tweakit/Ezimport/Helper/Attributes/</span> folder. Certain naming conventions must be followed: If you name your attribute &quot;color&quot; the file name must be &quot;color.php&quot; and the classname must be <span class=dir>Tweakit_Ezimport_Helper_Attributes_Color</span>.</p>
 				
-				<p>The class must implement the &quot;Tweakit_Ezimport_Helper_IAttribute&quot; interface and have the following public methods:</p>
+				<p>The class must implement the <span class=dir>Tweakit_Ezimport_Helper_IAttribute</span> interface and have the following public methods:</p>
 				
 				<ul>
 					<li><pre class=php>getName()</pre></li>
@@ -202,42 +202,26 @@ class Tweakit_Ezimport_Helper_Attributes_Baseimage implements Tweakit_Ezimport_H
 		if($data) {
 			
 			//Download the image trough curl
-			$ch = curl_init();
-			curl_setopt ($ch, CURLOPT_URL, $data);
-			curl_setopt ($ch, CURLOPT_RETURNTRANSFER, 1);
-			curl_setopt ($ch, CURLOPT_CONNECTTIMEOUT, 0);
-			$fileContents = curl_exec($ch);
-			$content_type = curl_getinfo($ch, CURLINFO_CONTENT_TYPE);
-			curl_close($ch);
+			//...
+						
+			//temporarily save the image
+			//...
+
+			/add the image to the Magento product
+			$product-><a href="http://docs.magentocommerce.com/Mage_Catalog/Mage_Catalog_Model_Product.html#addImageToMediaGallery" target=_blank>addImageToMediaGallery</a> ($filename, $visibility, true, false);
 			
-			if($content_type === 'image/jpeg') {
-				
-				$newImg = imagecreatefromstring($fileContents);
-				
-				//temporarily save the image with a random name
-				$path = $filename = Mage::getBaseDir('tmp') . DS . 'ezimport' . DS . 'temp_img' . DS . md5( time() . rand(1,999)) . '.jpg';
-				imagejpeg($newImg, $path, 100);
-	
-				//actually add the image to the product
-				$product->addImageToMediaGallery ($filename, $visibility, true, false);
-				
-				//delete the temporarily image
-				if(is_file($path))
-					unlink($path);
-			}
+			//remove temporarily saved image
+			//...
 
 		}
 </pre>	
 	<p>This is the most important method. When a product gets imported, the setData method will 
 	be called to set the data in the Magento product. We can do any transformation to the XML 
 	value that we want, before it gets saved in the Magento product.</p>
-<pre class=php>
-	}
-	
-}</pre>
+
 				<p><a target=_blank href="https://github.com/TweakIT/Ezimport/blob/master/src/app/code/local/Tweakit/Ezimport/Helper/Attributes/Baseimage.php">Click here to see this file in Github.</a>
 				
-				<p class="message info">After the setData method, the Magento product gets saved so there is no need to do this in the setData method.</p>
+				<p class="message info">After the setData method, the Magento product gets saved. There is no need to call <span class=dir>$product->save()</span>.</p>
 
 				<p>And thats all there is to it. Adding a file is enough. When mapping a XML, Ezimport will scan the Attributes folder and find your new attribute.</p>
 				
@@ -393,8 +377,15 @@ Array	{
 				
 				<p><a href="http://tutorialzine.com/projects/testify/" target=_blank>Testify</a> is used as the unit testing framework. Click <a href="http://tutorialzine.com/2011/11/lets-write-some-tests-testify-php/" target=_blank>here</a> for a tutorial on Testify.</p>
 				
-				<p>The default unit test can be run by calling the test.php script. You just need to make sure that the script includes app/Mage.php depending on where you place the script.</p>
-
+				<p>The default unit test can be run by calling the test.php script. You need to make sure that the script includes <span class=dir>app/Mage.php</span> depending on where you place the script.
+				Also, in test.php, change the following line to where the test folder resides:</p>
+				
+				<p><pre class=php>
+define("TEST_URL", "127.0.0.1");
+</pre></p>
+				
+				<p>So if test.php (and especially the sample xml files) reached with <span class=dir>localhost/somefolder/test.php</span>, set the test url to <span class=dir>localhost/somefolder</span> or <span class=dir>127.0.0.1/somefolder</span></p>
+				
 				<p>You can (and should) extend the standard Ezimport unit tests with your own XML&#39;s and/or attribute helper tests.</p>
 							
 				<p>Keep the name and description attribute helpers in order for the unit test to work.</p>
